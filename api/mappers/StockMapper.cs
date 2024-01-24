@@ -22,5 +22,18 @@ namespace api.mappers
 
             return stockDTO;
         }
+
+        public static Stock ToStockFromStockPostRequestDto(this StockPostRequestDTO stockPostRequestDTO) {
+            Stock stock = new Stock {
+                Symbol = stockPostRequestDTO.Symbol,
+                CompanyName = stockPostRequestDTO.CompanyName,
+                Industry = stockPostRequestDTO.Industry,
+                Purchase = stockPostRequestDTO.Purchase,
+                Dividend = stockPostRequestDTO.Dividend,
+                MarketCap = stockPostRequestDTO.MarketCap
+            };
+
+            return stock;
+        }
     }
 }

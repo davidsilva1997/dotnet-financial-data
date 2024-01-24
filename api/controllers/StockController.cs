@@ -25,7 +25,7 @@ namespace api.controllers
         #region Gets
         [HttpGet]
         public IActionResult GetAll() {
-            List<StockDTO> stocks = (List<StockDTO>)context.Stocks.ToList().Select(select => select.ToStockDTO());
+            var stocks = context.Stocks.ToList().Select(select => select.ToStockDTO());
 
             return Ok(stocks);
         }
@@ -39,6 +39,18 @@ namespace api.controllers
             }
 
             return Ok(stock.ToStockDTO());
+        }
+        #endregion
+
+        #region Posts
+        [HttpPost]
+        public IActionResult Post([FromBody] StockPostRequestDTO stockPostRequestDTO) {
+            Stock stock = stockPostRequestDTO.ToStockFromStockPostRequestDto();
+
+            context.Add(stock);
+            context.SaveChanges();
+
+            return CreatedAtAction(nameof(GetById), new { id = stock.StockId}, stock.ToStockDTO());
         }
         #endregion
         #endregion
