@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace api.models
@@ -5,6 +6,8 @@ namespace api.models
     public class Stock
     {
         #region Database Properties
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid StockId { get; set; }
 
         public string Symbol { get; set; } = string.Empty;

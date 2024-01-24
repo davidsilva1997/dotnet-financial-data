@@ -1,8 +1,13 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace api.models
 {
     public class Comment
     {
         #region Database Properties
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid CommentId { get; set; }
 
         public string Title { get; set; } = string.Empty;
