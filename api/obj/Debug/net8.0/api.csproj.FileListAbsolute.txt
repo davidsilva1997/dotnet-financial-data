@@ -31,3 +31,4 @@
 /Users/david/Code/dotnet/dotnet-financial-data/api/obj/Debug/net8.0/api.pdb
 /Users/david/Code/dotnet/dotnet-financial-data/api/obj/Debug/net8.0/api.genruntimeconfig.cache
 /Users/david/Code/dotnet/dotnet-financial-data/api/obj/Debug/net8.0/ref/api.dll
+/Users/david/Code/dotnet/dotnet-financial-data/api/obj/Debug/net8.0/api.sourcelink.json
