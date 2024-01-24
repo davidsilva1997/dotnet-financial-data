@@ -1,4 +1,6 @@
 using api.data;
+using api.dtos.Stock;
+using api.mappers;
 using api.models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +25,7 @@ namespace api.controllers
         #region Gets
         [HttpGet]
         public IActionResult GetAll() {
-            List<Stock> stocks = context.Stocks.ToList();
+            List<StockDTO> stocks = (List<StockDTO>)context.Stocks.ToList().Select(select => select.ToStockDTO());
 
             return Ok(stocks);
         }
@@ -36,7 +38,7 @@ namespace api.controllers
                 return NotFound();
             }
 
-            return Ok(stock);
+            return Ok(stock.ToStockDTO());
         }
         #endregion
         #endregion
