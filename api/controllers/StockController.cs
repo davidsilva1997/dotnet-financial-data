@@ -3,6 +3,7 @@ using api.dtos.Stock;
 using api.mappers;
 using api.models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.controllers
 {
@@ -75,6 +76,23 @@ namespace api.controllers
             context.SaveChanges();
 
             return Ok(stock.ToStockDTO());
+        }
+        #endregion
+        
+        #region Deletes
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete([FromRoute] Guid id) {
+            var stock = context.Stocks.SingleOrDefault(single => single.StockId == id);
+
+            if (stock == null) {
+                return NotFound();
+            }
+
+            context.Stocks.Remove(stock);
+            context.SaveChanges();
+
+            return NoContent();
         }
         #endregion
         #endregion
