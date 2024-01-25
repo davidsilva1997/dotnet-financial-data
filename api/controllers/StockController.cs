@@ -25,16 +25,18 @@ namespace api.controllers
         #region Public Methods
         #region Gets
         [HttpGet]
-        public IActionResult GetAll() {
-            var stocks = context.Stocks.ToList().Select(select => select.ToStockDTO());
+        public async Task<IActionResult> GetAll() {
+            var stocks = await context.Stocks.ToListAsync();
 
-            return Ok(stocks);
+            var stocksDTO = stocks.Select(select => select.ToStockDTO());
+
+            return Ok(stocksDTO);
         }
 
         [HttpGet]
         [Route("{id}")]
-        public IActionResult GetById([FromRoute] Guid id) {
-            Stock? stock = context.Stocks.Find(id);
+        public async Task<IActionResult> GetById([FromRoute] Guid id) {
+            Stock? stock = await context.Stocks.FindAsync(id);
 
             if (stock == null) {
                 return NotFound();
@@ -46,11 +48,11 @@ namespace api.controllers
 
         #region Posts
         [HttpPost]
-        public IActionResult Post([FromBody] StockRequestDTO StockRequestDTO) {
+        public async Task<IActionResult> Post([FromBody] StockRequestDTO StockRequestDTO) {
             Stock stock = StockRequestDTO.ToStockFromStockRequestDto();
 
-            context.Add(stock);
-            context.SaveChanges();
+            await context.AddAsync(stock);
+            await context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetById), new { id = stock.StockId}, stock.ToStockDTO());
         }
@@ -59,8 +61,8 @@ namespace api.controllers
         #region Puts
         [HttpPut]
         [Route("{id}")]
-        public IActionResult Put([FromRoute] Guid id, [FromBody] StockRequestDTO stockRequestDTO) {
-            var stock = context.Stocks.SingleOrDefault(single => single.StockId == id);
+        public async Task<IActionResult> Put([FromRoute] Guid id, [FromBody] StockRequestDTO stockRequestDTO) {
+            var stock = await context.Stocks.SingleOrDefaultAsync(single => single.StockId == id);
 
             if (stock == null) {
                 return NotFound();
@@ -73,7 +75,7 @@ namespace api.controllers
             stock.Dividend = stockRequestDTO.Dividend;
             stock.MarketCap = stockRequestDTO.MarketCap;
 
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             return Ok(stock.ToStockDTO());
         }
@@ -82,15 +84,15 @@ namespace api.controllers
         #region Deletes
         [HttpDelete]
         [Route("{id}")]
-        public IActionResult Delete([FromRoute] Guid id) {
-            var stock = context.Stocks.SingleOrDefault(single => single.StockId == id);
+        public async Task<IActionResult> Delete([FromRoute] Guid id) {
+            var stock = await context.Stocks.SingleOrDefaultAsync(single => single.StockId == id);
 
             if (stock == null) {
                 return NotFound();
             }
 
             context.Stocks.Remove(stock);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             return NoContent();
         }
