@@ -23,14 +23,14 @@ namespace api.mappers
             return stockDTO;
         }
 
-        public static Stock ToStockFromStockPostRequestDto(this StockPostRequestDTO stockPostRequestDTO) {
+        public static Stock ToStockFromStockRequestDto(this StockRequestDTO StockRequestDTO) {
             Stock stock = new Stock {
-                Symbol = stockPostRequestDTO.Symbol,
-                CompanyName = stockPostRequestDTO.CompanyName,
-                Industry = stockPostRequestDTO.Industry,
-                Purchase = stockPostRequestDTO.Purchase,
-                Dividend = stockPostRequestDTO.Dividend,
-                MarketCap = stockPostRequestDTO.MarketCap
+                Symbol = StockRequestDTO.Symbol,
+                CompanyName = StockRequestDTO.CompanyName,
+                Industry = StockRequestDTO.Industry,
+                Purchase = StockRequestDTO.Purchase,
+                Dividend = StockRequestDTO.Dividend,
+                MarketCap = StockRequestDTO.MarketCap
             };
 
             return stock;

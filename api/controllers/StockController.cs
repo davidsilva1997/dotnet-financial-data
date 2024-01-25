@@ -30,7 +30,8 @@ namespace api.controllers
             return Ok(stocks);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("{id}")]
         public IActionResult GetById([FromRoute] Guid id) {
             Stock? stock = context.Stocks.Find(id);
 
@@ -44,13 +45,36 @@ namespace api.controllers
 
         #region Posts
         [HttpPost]
-        public IActionResult Post([FromBody] StockPostRequestDTO stockPostRequestDTO) {
-            Stock stock = stockPostRequestDTO.ToStockFromStockPostRequestDto();
+        public IActionResult Post([FromBody] StockRequestDTO StockRequestDTO) {
+            Stock stock = StockRequestDTO.ToStockFromStockRequestDto();
 
             context.Add(stock);
             context.SaveChanges();
 
             return CreatedAtAction(nameof(GetById), new { id = stock.StockId}, stock.ToStockDTO());
+        }
+        #endregion
+        
+        #region Puts
+        [HttpPut]
+        [Route("{id}")]
+        public IActionResult Put([FromRoute] Guid id, [FromBody] StockRequestDTO stockRequestDTO) {
+            var stock = context.Stocks.SingleOrDefault(single => single.StockId == id);
+
+            if (stock == null) {
+                return NotFound();
+            }
+
+            stock.Symbol = stockRequestDTO.Symbol;
+            stock.CompanyName = stockRequestDTO.CompanyName;
+            stock.Industry = stockRequestDTO.Industry;
+            stock.Purchase = stockRequestDTO.Purchase;
+            stock.Dividend = stockRequestDTO.Dividend;
+            stock.MarketCap = stockRequestDTO.MarketCap;
+
+            context.SaveChanges();
+
+            return Ok(stock.ToStockDTO());
         }
         #endregion
         #endregion
