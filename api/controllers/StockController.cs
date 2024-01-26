@@ -1,10 +1,8 @@
-using api.data;
-using api.dtos.Stock;
-using api.interfaces;
-using api.mappers;
 using api.models;
+using api.mappers;
+using api.interfaces;
+using api.dtos.Stock;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace api.controllers
 {
@@ -13,14 +11,12 @@ namespace api.controllers
     public class StockController : ControllerBase
     {
         #region Properties
-        private readonly ApplicationDBContext context;
         private readonly IStockRepository stockRepository;
         #endregion
 
         #region Constructors
-        public StockController(ApplicationDBContext context, IStockRepository stockRepository)
+        public StockController(IStockRepository stockRepository)
         {
-            this.context = context;
             this.stockRepository = stockRepository;
         }
         #endregion
