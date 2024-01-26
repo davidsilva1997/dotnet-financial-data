@@ -1,0 +1,53 @@
+# Binaries
+bin/
+obj/
+
+# Visual Studio files
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider files
+.idea/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Compiled files
+*.dll
+*.exe
+*.pdb
+*.dll
+*.exe
+*.pdb
+*.dll
+*.exe
+*.pdb
+
+# Log files
+*.log
+
+# NuGet
+packages/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Mono Auto Generated Files
+mono_crash.*
+
+# Windows
