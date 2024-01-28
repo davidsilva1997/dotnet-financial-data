@@ -2,6 +2,7 @@ using api.data;
 using api.models;
 using api.interfaces;
 using Microsoft.EntityFrameworkCore;
+using api.dtos.Comment;
 
 namespace api.repositories
 {
@@ -35,6 +36,25 @@ namespace api.repositories
         public async Task<Comment> PostAsync(Comment comment)
         {
             await context.Comments.AddAsync(comment);
+            await context.SaveChangesAsync();
+
+            return comment;
+        }
+        #endregion
+
+        #region Puts
+        public async Task<Comment?> PutAsync(Guid id, CommentRequestDTO commentRequestDTO)
+        {
+            var comment = await context.Comments.SingleOrDefaultAsync(single => single.CommentId == id);
+
+            if (comment == null)
+            {
+                return null;
+            }
+
+            comment.Title = commentRequestDTO.Title;
+            comment.Content = commentRequestDTO.Content;
+
             await context.SaveChangesAsync();
 
             return comment;

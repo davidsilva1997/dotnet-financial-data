@@ -71,10 +71,26 @@ namespace api.controllers
         }
         #endregion
 
+        #region Puts
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> Put([FromRoute] Guid id, [FromBody] CommentRequestDTO commentRequestDTO)
+        {
+            var comment = await commentRepository.PutAsync(id, commentRequestDTO);
+
+            if (comment == null)
+            {
+                return NotFound("Comment does not exist.");
+            }
+
+            return Ok(comment.ToCommentDTO());
+        }
+        #endregion
+
         #region Deletes
         [HttpDelete]
         [Route("{id}")]
-        public async Task<IActionResult> Delete([FromRoute] Guid id) 
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             var comment = await commentRepository.DeleteAsync(id);
 

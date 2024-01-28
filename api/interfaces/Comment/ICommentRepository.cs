@@ -1,3 +1,4 @@
+using api.dtos.Comment;
 using api.models;
 
 namespace api.interfaces
@@ -13,6 +14,10 @@ namespace api.interfaces
 
         #region Posts
         Task<Comment> PostAsync(Comment comment);
+        #endregion
+
+        #region Puts
+        Task<Comment?> PutAsync(Guid id, CommentRequestDTO commentRequestDTO);
         #endregion
 
         #region Deletes
