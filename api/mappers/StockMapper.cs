@@ -5,8 +5,9 @@ namespace api.mappers
 {
     public static class StockMapper
     {
-        public static StockDTO ToStockDTO(this Stock stock) {
-            StockDTO stockDTO = new StockDTO 
+        public static StockDTO ToStockDTO(this Stock stock)
+        {
+            StockDTO stockDTO = new StockDTO
             {
                 StockId = stock.StockId,
                 Symbol = stock.Symbol,
@@ -21,14 +22,16 @@ namespace api.mappers
             return stockDTO;
         }
 
-        public static Stock ToStockFromStockRequestDto(this StockRequestDTO StockRequestDTO) {
-            Stock stock = new Stock {
-                Symbol = StockRequestDTO.Symbol,
-                CompanyName = StockRequestDTO.CompanyName,
-                Industry = StockRequestDTO.Industry,
-                Purchase = StockRequestDTO.Purchase,
-                Dividend = StockRequestDTO.Dividend,
-                MarketCap = StockRequestDTO.MarketCap
+        public static Stock ToStockFromStockRequestDto(this StockRequestDTO stockRequestDTO)
+        {
+            Stock stock = new Stock
+            {
+                Symbol = stockRequestDTO.Symbol,
+                CompanyName = stockRequestDTO.CompanyName,
+                Industry = stockRequestDTO.Industry,
+                Purchase = stockRequestDTO.Purchase,
+                Dividend = stockRequestDTO.Dividend,
+                MarketCap = stockRequestDTO.MarketCap
             };
 
             return stock;

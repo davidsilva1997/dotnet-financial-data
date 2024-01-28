@@ -79,6 +79,13 @@ namespace api.repositories
             return stock;
         }
         #endregion
+        
+        #region Checks
+        public Task<bool> Exists(Guid id)
+        {
+            return context.Stocks.AnyAsync(any => any.StockId == id);
+        }
+        #endregion
         #endregion
     }
 }

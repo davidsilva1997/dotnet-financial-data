@@ -10,6 +10,10 @@ namespace api.interfaces
 
         Task<Comment?> GetByIdAsync(Guid id);
         #endregion
+
+        #region Posts
+        Task<Comment> PostAsync(Comment comment);
+        #endregion
         #endregion
     }
 }

@@ -23,6 +23,10 @@ namespace api.interfaces
         #region Deletes
         Task<Stock?> DeleteAsync(Guid id);
         #endregion
+        
+        #region Checks
+        Task<bool> Exists(Guid id);
+        #endregion
         #endregion
     }
 }

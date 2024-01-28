@@ -30,6 +30,16 @@ namespace api.repositories
             return await context.Comments.FindAsync(id);
         }
         #endregion
+
+        #region Posts
+        public async Task<Comment> PostAsync(Comment comment)
+        {
+            await context.Comments.AddAsync(comment);
+            await context.SaveChangesAsync();
+
+            return comment;
+        }
+        #endregion
         #endregion
     }
 }

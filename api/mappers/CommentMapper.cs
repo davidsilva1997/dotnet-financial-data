@@ -17,5 +17,17 @@ namespace api.mappers
 
             return commentDTO;
         }
+
+        public static Comment ToCommentFromCommentRequestDto(this CommentRequestDTO commentRequestDTO, Guid stockId)
+        {
+            Comment comment = new Comment
+            {
+                Title = commentRequestDTO.Title,
+                Content = commentRequestDTO.Content,
+                StockId = stockId
+            };
+
+            return comment;
+        }
     }
 }

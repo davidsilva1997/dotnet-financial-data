@@ -14,7 +14,7 @@ namespace api.models
 
         public string Content { get; set; } = string.Empty;
 
-        public DateTime CreationDateTime { get; set; } = DateTime.Now;
+        public DateTime CreationDateTime { get; set; } = DateTime.Now.ToUniversalTime();
 
         public Guid? StockId { get; set; }
         #endregion

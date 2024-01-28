@@ -3,6 +3,7 @@ using api.mappers;
 using api.interfaces;
 using api.dtos.Stock;
 using Microsoft.AspNetCore.Mvc;
+using api.dtos.Comment;
 
 namespace api.controllers
 {
@@ -12,12 +13,14 @@ namespace api.controllers
     {
         #region Properties
         private readonly ICommentRepository commentRepository;
+        private readonly IStockRepository stockRepository;
         #endregion
 
         #region Constructors
-        public CommentController(ICommentRepository commentRepository)
+        public CommentController(ICommentRepository commentRepository, IStockRepository stockRepository)
         {
             this.commentRepository = commentRepository;
+            this.stockRepository = stockRepository;
         }
         #endregion
 
@@ -45,6 +48,26 @@ namespace api.controllers
             }
 
             return Ok(comment.ToCommentDTO());
+        }
+        #endregion
+
+        #region Posts
+        [HttpPost]
+        [Route("{stockId}")]
+        public async Task<IActionResult> Post([FromRoute] Guid stockId, CommentRequestDTO commentRequestDTO)
+        {
+            bool stockExists = await stockRepository.Exists(stockId);
+
+            if (!stockExists)
+            {
+                return BadRequest("Stock does not exist.");
+            }
+
+            var comment = commentRequestDTO.ToCommentFromCommentRequestDto(stockId);
+
+            await commentRepository.PostAsync(comment);
+
+            return CreatedAtAction(nameof(GetByIdAsync), new { id = comment.CommentId }, comment.ToCommentDTO());
         }
         #endregion
         #endregion
