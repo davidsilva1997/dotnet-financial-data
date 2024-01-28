@@ -14,6 +14,10 @@ namespace api.interfaces
         #region Posts
         Task<Comment> PostAsync(Comment comment);
         #endregion
+
+        #region Deletes
+        Task<Comment?> DeleteAsync(Guid id);
+        #endregion
         #endregion
     }
 }

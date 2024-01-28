@@ -27,7 +27,7 @@ namespace api.controllers
         #region Public Methods
         #region Gets
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<IActionResult> GetAll()
         {
             var comments = await commentRepository.GetAllAsync();
 
@@ -38,7 +38,7 @@ namespace api.controllers
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> GetByIdAsync([FromRoute] Guid id)
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             var comment = await commentRepository.GetByIdAsync(id);
 
@@ -67,7 +67,23 @@ namespace api.controllers
 
             await commentRepository.PostAsync(comment);
 
-            return CreatedAtAction(nameof(GetByIdAsync), new { id = comment.CommentId }, comment.ToCommentDTO());
+            return CreatedAtAction(nameof(GetById), new { id = comment.CommentId }, comment.ToCommentDTO());
+        }
+        #endregion
+
+        #region Deletes
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id) 
+        {
+            var comment = await commentRepository.DeleteAsync(id);
+
+            if (comment == null)
+            {
+                return NotFound("Comment does not exist.");
+            }
+
+            return NoContent();
         }
         #endregion
         #endregion
