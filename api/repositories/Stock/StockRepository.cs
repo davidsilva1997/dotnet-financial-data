@@ -23,12 +23,12 @@ namespace api.repositories
         #region Gets
         public async Task<List<Stock>> GetAllAsync()
         {
-            return await context.Stocks.ToListAsync();
+            return await context.Stocks.Include(include => include.Comments).ToListAsync();
         }
 
         public async Task<Stock?> GetByIdAsync(Guid id)
         {
-            return await context.Stocks.FindAsync(id);
+            return await context.Stocks.Include(include => include.Comments).SingleOrDefaultAsync(single => single.StockId == id);
         }
         #endregion
 

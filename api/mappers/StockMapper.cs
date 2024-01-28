@@ -14,7 +14,8 @@ namespace api.mappers
                 Industry = stock.Industry,
                 Purchase = stock.Purchase,
                 Dividend = stock.Dividend,
-                MarketCap = stock.MarketCap
+                MarketCap = stock.MarketCap,
+                Comments = stock.Comments.Select(select => select.ToCommentDTO()).ToList()
             };
 
             return stockDTO;

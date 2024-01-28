@@ -24,6 +24,11 @@ namespace api.repositories
         {
             return await context.Comments.ToListAsync();
         }
+
+        public async Task<Comment?> GetByIdAsync(Guid id) 
+        {
+            return await context.Comments.FindAsync(id);
+        }
         #endregion
         #endregion
     }

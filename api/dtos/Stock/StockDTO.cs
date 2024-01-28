@@ -1,3 +1,6 @@
+using api.dtos.Comment;
+using api.models;
+
 namespace api.dtos.Stock
 {
     public class StockDTO
@@ -15,5 +18,7 @@ namespace api.dtos.Stock
         public decimal Dividend { get; set; }
 
         public long MarketCap { get; set; }
+
+        public List<CommentDTO> Comments { get; set; } = new List<CommentDTO>();
     }
 }

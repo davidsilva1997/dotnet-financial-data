@@ -20,17 +20,31 @@ namespace api.controllers
             this.commentRepository = commentRepository;
         }
         #endregion
-    
+
         #region Public Methods
         #region Gets
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
-           var comments = await commentRepository.GetAllAsync();
+            var comments = await commentRepository.GetAllAsync();
 
             var commentsDTO = comments.Select(select => select.ToCommentDTO());
 
-           return Ok(comments);
+            return Ok(comments);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetByIdAsync([FromRoute] Guid id)
+        {
+            var comment = await commentRepository.GetByIdAsync(id);
+
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(comment.ToCommentDTO());
         }
         #endregion
         #endregion
