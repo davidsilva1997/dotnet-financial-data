@@ -34,7 +34,7 @@ namespace api.controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("{id:guid}")]
         public async Task<IActionResult> GetById([FromRoute] Guid id) 
         {
             Stock? stock = await stockRepository.GetByIdAsync(id);
@@ -61,7 +61,7 @@ namespace api.controllers
         
         #region Puts
         [HttpPut]
-        [Route("{id}")]
+        [Route("{id:guid}")]
         public async Task<IActionResult> Put([FromRoute] Guid id, [FromBody] StockRequestDTO stockRequestDTO) 
         {
             var stock = await stockRepository.PutAsync(id, stockRequestDTO);
@@ -76,7 +76,7 @@ namespace api.controllers
         
         #region Deletes
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{id:guid}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id) 
         {
             var stock = await stockRepository.DeleteAsync(id);

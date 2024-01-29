@@ -37,7 +37,7 @@ namespace api.controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("{id:guid}")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             var comment = await commentRepository.GetByIdAsync(id);
@@ -53,7 +53,7 @@ namespace api.controllers
 
         #region Posts
         [HttpPost]
-        [Route("{stockId}")]
+        [Route("{stockId:guid}")]
         public async Task<IActionResult> Post([FromRoute] Guid stockId, CommentRequestDTO commentRequestDTO)
         {
             bool stockExists = await stockRepository.Exists(stockId);
@@ -73,7 +73,7 @@ namespace api.controllers
 
         #region Puts
         [HttpPut]
-        [Route("{id}")]
+        [Route("{id:guid}")]
         public async Task<IActionResult> Put([FromRoute] Guid id, [FromBody] CommentRequestDTO commentRequestDTO)
         {
             var comment = await commentRepository.PutAsync(id, commentRequestDTO);
@@ -89,7 +89,7 @@ namespace api.controllers
 
         #region Deletes
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{id:guid}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             var comment = await commentRepository.DeleteAsync(id);
