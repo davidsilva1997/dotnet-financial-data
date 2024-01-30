@@ -1,4 +1,5 @@
 using api.models;
+using api.helpers;
 using api.mappers;
 using api.interfaces;
 using api.dtos.Stock;
@@ -24,9 +25,9 @@ namespace api.controllers
         #region Public Methods
         #region Gets
         [HttpGet]
-        public async Task<IActionResult> GetAll() 
+        public async Task<IActionResult> GetAll([FromQuery] QueryObject queryObject) 
         {
-            var stocks = await stockRepository.GetAllAsync();
+            var stocks = await stockRepository.GetAllAsync(queryObject);
 
             var stocksDTO = stocks.Select(select => select.ToStockDTO());
 

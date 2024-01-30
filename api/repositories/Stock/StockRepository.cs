@@ -1,5 +1,6 @@
 using api.data;
 using api.models;
+using api.helpers;
 using api.dtos.Stock;
 using api.interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -21,9 +22,21 @@ namespace api.repositories
 
         #region Public Methods
         #region Gets
-        public async Task<List<Stock>> GetAllAsync()
+        public async Task<List<Stock>> GetAllAsync(QueryObject queryObject)
         {
-            return await context.Stocks.Include(include => include.Comments).ToListAsync();
+            var stocks = context.Stocks.Include(include => include.Comments).AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(queryObject.Symbol))
+            {
+                stocks = stocks.Where(where => where.Symbol.Contains(queryObject.Symbol));
+            }
+
+            if (!string.IsNullOrWhiteSpace(queryObject.CompanyName))
+            {
+                stocks = stocks.Where(where => where.CompanyName.Contains(queryObject.CompanyName));
+            }
+
+            return await stocks.ToListAsync();
         }
 
         public async Task<Stock?> GetByIdAsync(Guid id)

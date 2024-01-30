@@ -1,4 +1,5 @@
 using api.models;
+using api.helpers;
 using api.dtos.Stock;
 
 namespace api.interfaces
@@ -7,7 +8,7 @@ namespace api.interfaces
     {
         #region Public Methods
         #region Gets
-        Task<List<Stock>> GetAllAsync();
+        Task<List<Stock>> GetAllAsync(QueryObject queryObject);
 
         Task<Stock?> GetByIdAsync(Guid id);
         #endregion
